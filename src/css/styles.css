@@ -7,12 +7,145 @@
 /* Common styles */
 @import url('./reset.css');
 @import url('./base.css');
-@import url('./container.css');
-@import url('./animations.css');
 
-/* Sections style */
-@import url('./header.css');
-@import url('./vite-promo.css');
-@import url('./badges.css');
-@import url('./back-link.css');
-@import url('./footer.css');
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 30px auto;
+  align-items: center;
+  border: 1px solid rgb(121, 98, 63);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  ;
+  padding: 8px;
+  max-width: 180px;
+  border-radius: 8px;
+}
+
+button {
+  max-width: 80px;
+  height: 30px;
+  background-color: rgba(175, 91, 155, 0.733);
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  color: #000000;
+  transition: background-color 300ms ease
+}
+
+button:hover,
+button:focus {
+  background-color: rgba(197, 126, 179, 0.74);
+}
+
+.btn-load{
+  margin: 0 auto;
+  visibility: visible;
+}
+.load-hidden{
+ visibility: hidden;
+}
+
+input {
+  outline: rgba(133, 62, 117, 0.733);
+}
+
+.loader.is-hidden {
+  display: none;
+}
+
+.loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  display: inline-block;
+  position: relative;
+}
+
+.loader::after,
+.loader::before {
+  content: '';
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #000000;
+  position: absolute;
+  left: 0;
+  top: 0;
+  animation: animloader 2s linear infinite;
+}
+
+.loader::after {
+  animation-delay: 1s;
+}
+
+@keyframes animloader {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gallery__link {
+  flex-basis: calc((100% - 32px) / 3);
+  text-decoration: none;
+  color: inherit;
+}
+
+.photo-card {
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+  background: #fff;
+}
+
+.photo-card-img{
+  display: block;
+  width: 380px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  font-size: 12px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.info-item b {
+  font-weight: 600;
+}
+
+.info-item span {
+  margin-top: 2px;
+}
