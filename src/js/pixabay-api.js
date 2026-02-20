@@ -16,9 +16,11 @@ export async function getImagesByQuery(query, page) {
             page
         },
     })
+    console.log(response.data);
         
     try {
         return response.data;
+        
     }
     catch (error) {
         iziToast.info({

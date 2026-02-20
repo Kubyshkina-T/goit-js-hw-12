@@ -15,6 +15,9 @@ loadMore.addEventListener("click", onLoadMore);
 
 let page = 1;
 let query = "";
+let totalPages = 0;
+const PER_PAGE = 15;
+
 
 function handleSubmit(event) {
     event.preventDefault();
@@ -37,8 +40,14 @@ function handleSubmit(event) {
                 });
                 return;
             }
+            totalPages = Math.ceil(data.totalHits / PER_PAGE);
             createGallery(data.hits);
             loadMore.classList.replace("load-hidden", "btn-load");
+              if (page < totalPages) {
+  loadMore.classList.remove("load-hidden");
+} else {
+  loadMore.classList.add("load-hidden");
+}
 
            form.reset();
         })
@@ -54,14 +63,14 @@ function handleSubmit(event) {
 }
 async function onLoadMore() {
     page++;
-
     try {
         const data = await
-            getImagesByQuery(query, page);
-            createGallery(data.hits);
+        getImagesByQuery(query, page);
+        createGallery(data.hits);
+         if (page >= totalPages) {
+        loadMore.classList.add("load-hidden");
+        }
         console.log(data);
-        // gallery.insertAdjacentHTML("beforeend", createGallery(data.hits))
-        
     } catch(error) {
         iziToast.error({
             message: error.message
