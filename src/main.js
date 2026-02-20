@@ -1,9 +1,11 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
+
 import { getImagesByQuery } from "./js/pixabay-api";
-import { createGallery } from "./js/render-functions";    
+import { createGallery } from "./js/render-functions";
 import { showLoader, hideLoader } from "./js/render-functions";
 import { clearGallery } from "./js/render-functions";
+import { showLoadMoreButton, hideLoadMoreButton } from "./js/render-functions";
 
 
 const form = document.querySelector(".form");
@@ -19,8 +21,9 @@ let totalPages = 0;
 const PER_PAGE = 15;
 
 
-function handleSubmit(event) {
+async function handleSubmit(event) {
     event.preventDefault();
+
      query = inputEl.value.trim();
     page = 1;
 
@@ -42,12 +45,15 @@ function handleSubmit(event) {
             }
             totalPages = Math.ceil(data.totalHits / PER_PAGE);
             createGallery(data.hits);
-            loadMore.classList.replace("load-hidden", "btn-load");
-              if (page < totalPages) {
-  loadMore.classList.remove("load-hidden");
-} else {
-  loadMore.classList.add("load-hidden");
-}
+             if (page < totalPages) {
+     showLoadMoreButton();
+    } else {
+      hideLoadMoreButton();
+      iziToast.info({
+          message: "We're sorry, but you've reached the end of search results.",
+           position: "bottomRight"
+      });
+    }
 
            form.reset();
         })
@@ -63,17 +69,45 @@ function handleSubmit(event) {
 }
 async function onLoadMore() {
     page++;
+
+    hideLoadMoreButton();
+    showLoader();
+
     try {
         const data = await
-        getImagesByQuery(query, page);
+            getImagesByQuery(query, page);
+        
         createGallery(data.hits);
-         if (page >= totalPages) {
-        loadMore.classList.add("load-hidden");
+         if (page < totalPages) {
+              showLoadMoreButton();
         }
+        else {
+ hideLoadMoreButton();
+  iziToast.info({
+    message: "We're sorry, but you've reached the end of search results.",
+    position: "bottomRight"
+  });
+        }
+        
+        const card = document.querySelector(".gallery-item");
+        const cardHeight = card.getBoundingClientRect().height;
+        window.scrollBy({
+            left: 0,
+            top: cardHeight * 2,
+            behavior: "smooth"
+        })
+console.log();
+
         console.log(data);
     } catch(error) {
         iziToast.error({
             message: error.message
         });
+    }
+    finally {
+         hideLoader();
+        loadMore.disabled = false;
+        // loadMore.textContent = "Load more";
+    }
 }
-}
+

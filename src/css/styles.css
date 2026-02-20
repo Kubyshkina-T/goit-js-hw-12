@@ -24,7 +24,7 @@
 }
 
 button {
-  max-width: 80px;
+  max-width: 100px;
   height: 30px;
   background-color: rgba(175, 91, 155, 0.733);
   outline: none;
@@ -40,10 +40,11 @@ button:focus {
 }
 
 .btn-load{
-  margin: 0 auto;
+  margin: 50px auto;
   visibility: visible;
+ width: 140px;
 }
-.load-hidden{
+.is-hidden{
  visibility: hidden;
 }
 
@@ -51,29 +52,26 @@ input {
   outline: rgba(133, 62, 117, 0.733);
 }
 
-.loader.is-hidden {
-  display: none;
-}
-
 .loader {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 48px;
   height: 48px;
-  display: inline-block;
+  display: block;
+  margin: 20px auto;
   position: relative;
+}
+
+.is-hidden {
+  display: none;
 }
 
 .loader::after,
 .loader::before {
-  content: '';
+  content: "";
   box-sizing: border-box;
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: 2px solid #000000;
+  border: 2px solid #000;
   position: absolute;
   left: 0;
   top: 0;
@@ -95,7 +93,6 @@ input {
     opacity: 0;
   }
 }
-
 
 .gallery {
   display: flex;
