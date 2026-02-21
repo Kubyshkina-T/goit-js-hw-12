@@ -52,6 +52,7 @@ input {
   outline: rgba(133, 62, 117, 0.733);
 }
 
+
 .loader {
   width: 48px;
   height: 48px;
@@ -93,16 +94,25 @@ input {
     opacity: 0;
   }
 }
-
-.gallery {
+.gallery{
+   margin: 0 auto;
+   padding: 16px;
+}
+@media only screen and (min-width: 768px) {
+ .gallery {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  padding: 16px;
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 580px;
+}
 }
 
+@media only screen and (min-width: 1024px) {
+  .gallery {
+      max-width: 1000px;
+      justify-content: center;
+}
+}
 .gallery__link {
   flex-basis: calc((100% - 32px) / 3);
   text-decoration: none;
@@ -110,6 +120,7 @@ input {
 }
 
 .photo-card {
+  max-width: 280px;
   border: 1px solid #e0e0e0;
   overflow: hidden;
   background: #fff;
